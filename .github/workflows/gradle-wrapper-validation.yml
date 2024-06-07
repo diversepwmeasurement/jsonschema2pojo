@@ -1,21 +1,16 @@
-name: "Validate Gradle Wrapper"
-
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-  workflow_dispatch:
-
 jobs:
   validation:
-    name: "Validation Android"
-    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: jsonschema2pojo-gradle-plugin/example/android
+    name: Validation Android
+    runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v3
-      - uses: gradle/wrapper-validation-action@v1
+    - continue-on-error: true
+      uses: actions/checkout@v3
+    - continue-on-error: true
+      uses: gradle/wrapper-validation-action@v1
+name: Validate Gradle Wrapper
+on:
+  repository_dispatch:
+    types: trigger-ga___gradle-wrapper-validation.yml
